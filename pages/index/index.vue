@@ -23,12 +23,21 @@
 	}
 </script>
 
-<style>
+<style lang="scss">
 	.content {
 		display: flex;
 		flex-direction: column;
 		align-items: center;
 		justify-content: center;
+		// &::before{
+		// 	content: "";
+		// 	position:absolute;
+		// 	width: 100px;
+		// 	height: 50px;
+		// 	background: red;
+		// 	top: 0;
+		// 	left: 0;
+		// }
 	}
 
 	.logo {
