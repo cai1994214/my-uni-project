@@ -11,7 +11,7 @@
 	export default {
 		data() {
 			return {
-				title: 'Hello 123'
+				title: 'Hello vue3'
 			}
 		},
 		onLoad() {
@@ -23,21 +23,12 @@
 	}
 </script>
 
-<style lang="scss">
+<style>
 	.content {
 		display: flex;
 		flex-direction: column;
 		align-items: center;
 		justify-content: center;
-		// &::before{
-		// 	content: "";
-		// 	position:absolute;
-		// 	width: 100px;
-		// 	height: 50px;
-		// 	background: red;
-		// 	top: 0;
-		// 	left: 0;
-		// }
 	}
 
 	.logo {
