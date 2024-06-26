@@ -11,7 +11,7 @@
 	export default {
 		data() {
 			return {
-				title: 'Hello vue3 123'
+				title: 'Hello vue3 123 '
 			}
 		},
 		onLoad() {
