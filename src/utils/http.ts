@@ -1,5 +1,6 @@
 import { useMemberStore } from '@/stores'
 const baseUrl = 'https://pcapi-xiaotuxian-front-devtest.itheima.net'
+const memberStore = useMemberStore()
 
 // 添加拦截器
 const httpInterceptor = {
@@ -15,8 +16,6 @@ const httpInterceptor = {
       ...options.header,
       'source-client': 'miniapp',
     }
-
-    const memberStore = useMemberStore()
     const token = memberStore?.profile?.token
     if (token) {
       options.header.Authorization = token
@@ -28,3 +27,42 @@ const httpInterceptor = {
 
 uni.addInterceptor('request', httpInterceptor)
 uni.addInterceptor('uploadFile', httpInterceptor)
+
+interface Data<T> {
+  code: string
+  msg: string
+  result: T
+}
+
+export const http = <T>(options: UniApp.RequestOptions) => {
+  return new Promise<Data<T>>((reslove, reject) => {
+    uni.request({
+      ...options,
+      success(res) {
+        if (res.statusCode >= 200 && res.statusCode < 300) {
+          reslove(res.data as Data<T>)
+        } else if (res.statusCode === 401) {
+          // 清空用户信息 并且跳转登录页
+          memberStore.clearProfile()
+          uni.navigateTo({
+            url: '/pages/login/login',
+          })
+          reject(res)
+        } else {
+          uni.showToast({
+            icon: 'none',
+            title: res.data.msg || '获取数据失败',
+          })
+          reject(res)
+        }
+      },
+      fail(err) {
+        uni.showToast({
+          icon: 'none',
+          title: '网络错误',
+        })
+        reject(res)
+      },
+    })
+  })
+}

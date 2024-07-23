@@ -1,14 +1,15 @@
 <script setup lang="ts">
 import { useMemberStore } from '@/stores'
-import '@/utils/http'
+import { http } from '@/utils/http'
 
 const memberStore = useMemberStore()
-const getData = () => {
-  uni.request({
-    url: '/home/banner',
+const getData = async () => {
+  const res = await http<string[]>({
+    url: '/member/profile',
     method: 'GET',
     header:{},
   })
+  console.log(res, 'res')
 }
 </script>
 
